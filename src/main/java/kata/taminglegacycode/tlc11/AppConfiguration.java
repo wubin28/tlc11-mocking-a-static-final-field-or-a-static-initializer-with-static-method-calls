@@ -1,4 +1,4 @@
-package kata.taminglegacycode.tlc5;
+package kata.taminglegacycode.tlc11;
 
 public class AppConfiguration {
     public static DryConfiguration getDryConfiguration() {
