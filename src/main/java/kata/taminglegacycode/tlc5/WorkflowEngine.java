@@ -1,17 +1,22 @@
 package kata.taminglegacycode.tlc5;
 
 public class WorkflowEngine {
-    private static final DryConfiguration dryConfiguration = AppConfiguration.getDryConfiguration();
+    private DryConfiguration dryConfiguration;
 
-    private static ModelReader reader;
+    private ModelReader reader;
 
-    private static TransactionManager tm;
+    private TransactionManager tm;
 
-    static {
-        reader = new ModelReader(AppConfig.getDryConfiguration());
-        XMLStore persister = new XMLStore(dryConfiguration);
-        tm = new TransactionManager(reader, persister);
+    public WorkflowEngine() {
+        this.dryConfiguration = AppConfiguration.getDryConfiguration();
+        this.reader = new ModelReader(AppConfig.getDryConfiguration());
+        this.tm = new TransactionManager(reader, new XMLStore(dryConfiguration));
     }
+
+    public WorkflowEngine(DryConfiguration dryConfiguration, ModelReader reader, TransactionManager transactionManager) {
+        this.dryConfiguration = dryConfiguration;
+        this.reader = reader;
+        this.tm = transactionManager;    }
 
     public void approve(String taskId, int employeeId, String nodeID) {
         if (isApprovalable(employeeId)) {
